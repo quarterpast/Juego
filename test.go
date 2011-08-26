@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-//	"reflect"
+	"reflect"
 //	"flag"
 	"http"
 	"io"
@@ -34,13 +34,13 @@ func (m Model) Save() {
 func (c Controller) Render(args ...interface{}) {
 	fmt.Fprintln(c.writer,args...)
 }
-
-
 func (this Pages) Index() {
 	this.Render(this.title,this.content)
 }
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+	for k,v := range r.URL.Path[1:] {
+		
+	}
 }
 func main() {
 	//page := NewPage("test","this is a test page")

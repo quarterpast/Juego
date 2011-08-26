@@ -5,4 +5,3 @@ GOFILES=\
 	test.go\
 
 include $(GOROOT)/src/Make.cmd
-
