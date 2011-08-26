@@ -2,31 +2,49 @@ package main
 
 import (
 	"fmt"
-	"reflect"
-	"flag"
+//	"reflect"
+//	"flag"
+	"http"
+	"io"
 )
 
 type Object interface{}
-type Model struct {}
-type Controller struct {}
-type Page struct {
-	title, content string
+type Persist struct{}
+type Model struct {
+	Persist
 }
-type Pages struct {Controller
+type Controller struct {
+	writer io.Writer
+}
+type Page struct {
+	Model
+	title, content string
+
+}
+func NewPage(title, content string) Page {
+	return Page{Model{Persist{}},title,content}
+}
+type Pages struct {
+	Controller
 	Page
 }
 
+func (m Model) Save() {
+}
 func (c Controller) Render(args ...interface{}) {
-	fmt.Println(args...)
+	fmt.Fprintln(c.writer,args...)
 }
 
 
 func (this Pages) Index() {
 	this.Render(this.title,this.content)
 }
-
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+}
 func main() {
-	args := []reflect.Value{reflect.ValueOf(1)}
-	page := Page{"test","this is a test page"}
-	reflect.ValueOf(Pages{Page:page}).MethodByName(flag.Arg(0)).Call(args)
+	//page := NewPage("test","this is a test page")
+	//cont := Pages{Page:page}
+	http.HandleFunc("/",handler)
+	http.ListenAndServe(":10000",nil)
 }
