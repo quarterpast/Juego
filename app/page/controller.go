@@ -1,6 +1,6 @@
 package page
 
-import "../../mvc"
+import "../../mvc/_obj/mvc"
 
 type Controller mvc.Controller
 
