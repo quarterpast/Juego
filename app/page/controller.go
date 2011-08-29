@@ -8,8 +8,8 @@ type Controller struct{
 }
 
 func (this Controller) Index() {
-	this.Render(this.Title,this.Content)
+	this.Render(map[string]interface{}{"title":this.Title,"content":this.Content})
 }
 func (this Controller) Stuff(a string,b int) {
-	this.Render(a,b)
+	this.Render(map[string]interface{}{"a":a,"b":b})
 }

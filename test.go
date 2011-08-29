@@ -12,7 +12,6 @@ import (
 var controllers = map[string] reflect.Type {
 	"page": reflect.TypeOf(page.Controller{}),
 }
-
 func Handler(w http.ResponseWriter, r *http.Request) {
 	comps := strings.Split(r.URL.Path[1:],"/")
 	/*fmt.Fprintln(os.Stderr,reflect.ValueOf(w))

@@ -15,7 +15,8 @@ type Model struct {}
 type Controller struct {
 	Writer io.Writer
 }
-func (m Model) Save() {
+func (m Model) Save() os.Error {
+	return nil
 }
 func Caller() (string, bool) {
 	if pc,_,_,ok := runtime.Caller(2); ok {
@@ -23,11 +24,16 @@ func Caller() (string, bool) {
 	}
 	return "", false
 }
-func (c Controller) Render(args ...interface{}) {
+func (c Controller) Render(args map[string]interface{}) os.Error {
 	if caller,ok := Caller(); ok {
-		fmt.Fprintln(os.Stderr,caller)
+		//TODO: template shit
+		fmt.Fprintln(c.Writer,caller)
+		return nil
 	}
-	fmt.Fprintln(c.Writer,args...)
+	return os.NewError("oh snap")
+}
+func (c Controller) RenderJSON() args map[string]interface{}) os.Error {
+
 }
 /*func handler(w http.ResponseWriter, r *http.Request) {
 	for k,v := range r.URL.Path[1:] {
