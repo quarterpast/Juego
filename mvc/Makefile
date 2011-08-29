@@ -1,7 +1,2 @@
-include $(GOROOT)/src/Make.inc
-
-TARG=mvc
-GOFILES=\
-	mvc.go\
-
-include $(GOROOT)/src/Make.pkg
+all:
+	6g -o ../mvc.6 mvc.go

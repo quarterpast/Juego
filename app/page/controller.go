@@ -1,9 +1,15 @@
 package page
 
-import "../../mvc/_obj/mvc"
+import "../../mvc"
 
-type Controller mvc.Controller
+type Controller struct{
+	mvc.Controller
+	Model
+}
 
 func (this Controller) Index() {
-	this.Render(this.title,this.content)
+	this.Render(this.Title,this.Content)
+}
+func (this Controller) Stuff(a string,b int) {
+	this.Render(a,b)
 }

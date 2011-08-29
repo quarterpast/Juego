@@ -1,8 +1,8 @@
 package page
 
-import "../../mvc/_obj/mvc"
+import "../../mvc"
 
 type Model struct {
 	mvc.Model
-	title, content string
+	Title, Content string
 }

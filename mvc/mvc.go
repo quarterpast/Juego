@@ -3,31 +3,31 @@ package mvc
 import (
 	"fmt"
 //	"reflect"
-//	"flag"
-//	"http"
 	"io"
+	"runtime"
+	"os"
+	"strings"
 )
-
-type Object interface{}
-type Persist struct{}
-type Model struct {
-	Persist
+type Persistent interface{
+	Save() os.Error
 }
+type Model struct {}
 type Controller struct {
-	writer io.Writer
-}
-type Page struct {
-	Model
-	title, content string
-
-}
-func NewModel() *Model {
-	return &Model{Persist{}}
+	Writer io.Writer
 }
 func (m Model) Save() {
 }
+func Caller() (string, bool) {
+	if pc,_,_,ok := runtime.Caller(2); ok {
+		return strings.Split(runtime.FuncForPC(pc).Name(),"·")[1], true
+	}
+	return "", false
+}
 func (c Controller) Render(args ...interface{}) {
-	fmt.Fprintln(c.writer,args...)
+	if caller,ok := Caller(); ok {
+		fmt.Fprintln(os.Stderr,caller)
+	}
+	fmt.Fprintln(c.Writer,args...)
 }
 /*func handler(w http.ResponseWriter, r *http.Request) {
 	for k,v := range r.URL.Path[1:] {

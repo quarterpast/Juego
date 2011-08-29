@@ -1,8 +1,2 @@
-include $(GOROOT)/src/Make.inc
-
-TARG=page
-GOFILES=\
-	controller.go\
-	model.go
-
-include $(GOROOT)/src/Make.pkg
+all:
+	6g  -o ../../page.6 controller.go model.go
